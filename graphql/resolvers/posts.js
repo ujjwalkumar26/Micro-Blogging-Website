@@ -1,11 +1,14 @@
+const { AuthenticationError } = require('apollo-server');
+
 const { create } = require('../../models/Post');
 const Post = require('../../models/Post');
 const check_auth = require('../../util/auth');
+
 const postResolvers = {
     Query: {
         async getPosts() {
             try{
-                const posts = await Post.find();
+                const posts = await Post.find().sort({createdAt: -1});
                 return posts;
             } catch(err) {
                 throw new Error(err);
@@ -41,6 +44,27 @@ const postResolvers = {
             })    
             const post = await newPost.save();
             return post;
+        },
+        async deletePost(
+            parent, 
+            {
+                id
+            }
+            , context
+            , info
+        ) {
+            const user = check_auth(context);
+            try {
+                const post = await Post.findById({_id: id});
+                if(post.username == user.username) {
+                    await post.delete();
+                    return true;
+                }
+                else throw new AuthenticationError('Invalid User')
+            }
+            catch(err){
+                throw new Error(err);
+            }        
         }
     }
 }
