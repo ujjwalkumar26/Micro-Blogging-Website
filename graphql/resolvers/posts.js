@@ -1,5 +1,6 @@
+const { create } = require('../../models/Post');
 const Post = require('../../models/Post');
-
+const check_auth = require('../../util/auth');
 const postResolvers = {
     Query: {
         async getPosts() {
@@ -26,16 +27,20 @@ const postResolvers = {
         async createPost(
             parent,
             {
-                   
+               body    
             }
             , context
             , info
-        ) {
-            
-
-            return {
-                
-            }
+        ) {        
+            const user = check_auth(context);
+            const newPost = new Post( {
+                body,
+                user: user.id,
+                username: user.username,
+                createdAt: new Date().toISOString()
+            })    
+            const post = await newPost.save();
+            return post;
         }
     }
 }
