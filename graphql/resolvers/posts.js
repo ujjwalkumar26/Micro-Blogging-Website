@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server');
 const { UserInputError } = require('apollo-server');
 
 const Post = require('../../models/Post');
+const User = require('../../models/User');
 const check_auth = require('../../util/auth');
 
 const postResolvers = {
@@ -42,7 +43,8 @@ const postResolvers = {
             }
             , context
             , info
-        ) {        
+        ) {  
+            if(body.trim() === '') throw new UserInputError('Post Cannot be empty');
             const user = check_auth(context);
             const newPost = new Post( {
                 body,
