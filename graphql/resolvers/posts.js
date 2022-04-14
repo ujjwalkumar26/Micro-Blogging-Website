@@ -10,12 +10,14 @@ const postResolvers = {
     Query: {
         async getPosts(parent, args, context, info) {
             try{
-                const user = check_auth(context);
-                if(user) {
-                    const posts = await Post.find().sort({createdAt: -1});
-                    return posts;
-                }
-                else throw new AuthenticationError("Login Again");
+                //const user = check_auth(context);
+                const posts = await Post.find().sort({createdAt: -1});
+                return posts;
+                // if(user) {
+                //     const posts = await Post.find().sort({createdAt: -1});
+                //     return posts;
+                // }
+                //else throw new AuthenticationError("Login Again");
             } catch(err) {
                 throw new Error(err);
             }
