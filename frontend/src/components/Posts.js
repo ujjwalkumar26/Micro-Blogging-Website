@@ -1,15 +1,16 @@
 import React from 'react'
 import Post from '../components/Post';
-import {Row, Col} from 'antd';
+import {Row, Col, Divider} from 'antd';
 export default function Posts({props}) {
   return (
     <div>
-    <Row gutter = {[32]}>
-      <Col>
-        { props && props.map(post => (
-          <Post post = {post} key = {post.id}/>
-        ))}
-      </Col>
+    <Row gutter = {[8]}>
+        { props && props.map((post, index, props) => ([ 
+            <Col span = {8} key = {index}>
+            <Post post = {post} key = {post.id}/> 
+            <Divider/> 
+            </Col>
+        ]))} 
     </Row>
     </div>
   )

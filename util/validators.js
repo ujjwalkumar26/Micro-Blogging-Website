@@ -20,6 +20,9 @@ const userRegisterValidator = (
     if(password === '') {
         errors.password  = 'Password cannot be empty';
     }
+    if(confirmPassword === '') {
+        errors.confirmPassword  = 'Confirm password cannot be empty';
+    }
     else if(password.length < 6) {
         errors.password = 'Password should be of length at least 6';
     }

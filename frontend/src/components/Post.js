@@ -10,7 +10,7 @@ const { Meta } = Card;
 function Post( { post: {body, createdAt, username, id, likeCount, commentCount, likes} }) {
   return (
     <Card
-    style={{ width: 300 }}
+    style={{ "width": 300 }}
     cover={
         <img
             alt="example"
@@ -29,8 +29,7 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
         title={username}
         description= {<a href = {`/posts/${id}`}> Posted: {moment(createdAt).fromNow().charAt(0).toUpperCase() + moment(createdAt).fromNow().slice(1)}</a>}
     />
-    <p>{body}</p>
-    <p>Liked by: {likeCount} people </p>
+    <p style={{"paddingTop": 20}}>{body}</p>
   </Card>
   )
 }

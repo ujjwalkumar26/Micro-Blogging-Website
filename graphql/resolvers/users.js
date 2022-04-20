@@ -45,6 +45,7 @@ const userResolvers = {
         {
             const {errors, valid} = userRegisterValidator(username, email, password, confirmPassword);
             if(!valid) {
+                // console.log(errors);
                 throw new UserInputError('Input Errors', { errors });
             }
 
@@ -53,7 +54,7 @@ const userResolvers = {
             const userExists = await User.findOne({username: username})
             if(userExists) {
 
-                console.log('Already Exists!');
+                // console.log('Already Exists!');
                 throw new UserInputError('Already Exisiting user', {
                     errors: {
                         username: `Username ${username} is already taken`
