@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Input, Button, Alert, Spin } from 'antd';
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { useNavigate } from "react-router-dom";
+import MenuBar from '../components/MenuBar';
+import {AuthContext} from '../context/auth';
 
 
-function SignUp(props) {
+function SignUp() {
   
+  const navigate = useNavigate();
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
   const [values, setValues] = useState({
@@ -17,9 +22,10 @@ function SignUp(props) {
 
   // eslint-disable-next-line
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      console.log(result);
-      props.history.push('/');
+    update(_, { data : { registerNewUser: userData }}) {
+      // console.log(userData);
+      context.login(userData);
+      navigate("/");
     }, 
     onError(err) {
       // console.log(err.graphQLErrors[0].extensions.errors);
@@ -49,6 +55,7 @@ function SignUp(props) {
 
   return (
     <div >
+    <MenuBar/>
     {loading && (<div className="loading-spinner"><Spin size = "large"/></div>)}
     <Form
       labelCol={{ offset : 8, span: 16 }}

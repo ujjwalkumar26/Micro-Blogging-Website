@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Input, Button, Alert, Spin } from 'antd';
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from '../context/auth';
+import MenuBar from '../components/MenuBar';
 
-function SignIn(props) {
+function SignIn() {
+
+  const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
   const [errors, setErrors] = useState({});
-
   const [values, setValues] = useState({
     username: '',
     password: '',
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(_, result) {
-      console.log(result);
-      // props.history.push("/");
-      
+    update(_, {data : { loginUser: userData }}) {
+      // console.log(result.data.loginUser);
+      // console.log(userData);
+      context.login(userData);
+      navigate("/");
     }, 
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
@@ -42,6 +47,7 @@ function SignIn(props) {
 
   return (
     <div >
+    <MenuBar/>
     {loading && (<div className="loading-spinner"><Spin size = "large"/></div>)}
     <Form
       labelCol={{ offset : 8, span: 16 }}

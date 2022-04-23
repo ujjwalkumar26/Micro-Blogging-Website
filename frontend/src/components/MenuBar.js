@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Menu } from 'antd';
 import { HomeTwoTone, UserAddOutlined, UserOutlined } from '@ant-design/icons';
+import { AuthContext } from '../context/auth';
+
 function MenuBar() {
+
+    const context = useContext(AuthContext);
+    
     const pathName = window.location.pathname;
     let path = '/';
-    if(pathName === '/') path = 'home';
+    if(pathName === '/' || pathName === '') path = 'home';
     else path = pathName.substring(1);
     const [current, setCurrent] = useState(path);
-
     const handleClick = (e) => {
-        console.log(e.key);
         setCurrent(e.key);
     };
 
-    return (
-      <Menu onClick={handleClick} selectedKeys={ [current] } mode="horizontal">
+
+    const menu = context.user ? ( 
+        
+        <Menu onClick={handleClick} selectedKeys={ [current] } mode="horizontal">
+        <Menu.Item key="home" icon={ <HomeTwoTone />} >
+            <a href="/" >
+                {context.user.username}
+            </a>
+            </Menu.Item>
+
+        <Menu.Item key="logout" icon={ <UserOutlined /> } onClick = {context.logout} >
+            <a href="/signin" >
+                logout
+            </a>
+        </Menu.Item>
+      </Menu>
+
+    ) : (
+        <Menu onClick={handleClick} selectedKeys={ [current] } mode="horizontal">
         <Menu.Item key="home" icon={ <HomeTwoTone />} >
             <a href="/" >
                 Home
@@ -31,6 +51,10 @@ function MenuBar() {
             </a>
         </Menu.Item>
       </Menu>
-    )
+    );
+
+
+
+    return menu;
 }
 export default MenuBar;

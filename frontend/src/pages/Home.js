@@ -3,16 +3,20 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Posts from '../components/Posts';
 import {Card} from 'antd';
-
+import MenuBar from '../components/MenuBar';
 function Home() {
   const {loading, data} = useQuery(FETCH_POSTS_QUERY);
   // if(data) console.log(data);
   return (
+    <>
+    <MenuBar/>
     <div style = {{margin: "5%"}}>
     { loading 
       ? <Card style={{ width: "30%", height: "20%",  marginLeft: "30%", marginTop: 16 }}  loading = {loading} /> 
       : <Posts props = {data.getPosts}/>}
     </div>
+    </>
+    
   )
 }
 
