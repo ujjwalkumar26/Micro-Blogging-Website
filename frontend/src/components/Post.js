@@ -17,7 +17,7 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
     <CommentButton user = {user} commentCount={commentCount} id = {id} />,
   ];
   if(user && user.username === username) {
-    actions.push(<DeletePostButton user = {user} id = {id} />);
+    actions.push(<DeletePostButton postId = {id} />);
   }
   return (
     <Card

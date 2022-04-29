@@ -15,17 +15,16 @@ const postResolvers = {
             } catch(err) {
                 throw new Error(err);
             }
+
         },
         async getPost(_, { postId }, context, info) {
             try{
-                const user = check_auth(context);
-                if(user) {
-                    const post = await Post.findById(postId);
-                    if(post) {
-                        return post;
-                    }
-                    else throw new Error('Post Not found!');
-                }
+                const post = await Post.findById(postId);
+                if(post) {
+                    return post;
+                } 
+                else throw new Error('Post Not found!');
+                
             } catch(err) {
                 throw new Error(err);
             }
