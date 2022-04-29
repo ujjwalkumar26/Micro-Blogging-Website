@@ -10,14 +10,8 @@ const postResolvers = {
     Query: {
         async getPosts(parent, args, context, info) {
             try{
-                //const user = check_auth(context);
                 const posts = await Post.find().sort({createdAt: -1});
                 return posts;
-                // if(user) {
-                //     const posts = await Post.find().sort({createdAt: -1});
-                //     return posts;
-                // }
-                //else throw new AuthenticationError("Login Again");
             } catch(err) {
                 throw new Error(err);
             }
@@ -38,6 +32,8 @@ const postResolvers = {
         }
     },
     Mutation: {
+
+        
         async createPost(
             parent,
             {
@@ -46,7 +42,11 @@ const postResolvers = {
             , context
             , info
         ) {  
-            if(body.trim() === '') throw new UserInputError('Post Cannot be empty');
+            if(body.trim() === '') throw new UserInputError('Post Cannot be empty', {
+                errors: {
+                    body: 'Post is empty.'
+                }
+            });
             const user = check_auth(context);
             const newPost = new Post( {
                 body,
@@ -57,6 +57,8 @@ const postResolvers = {
             const post = await newPost.save();
             return post;
         },
+
+
         async deletePost(
             parent, 
             {

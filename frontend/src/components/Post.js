@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Card, Avatar} from 'antd';
 // import { LikeOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import LikeButton from './LikeButton';
 import CommentButton from './CommentButton';
+import DeletePostButton from './DeletePostButton';
 
+import { AuthContext } from '../context/auth';
 const { Meta } = Card;
 
 function Post( { post: {body, createdAt, username, id, likeCount, commentCount, likes} }) {
+  
+  const {user} = useContext(AuthContext);
+  const actions = [
+    <LikeButton likes = {likes} user = {user} likeCount = {likeCount} id = {id}/>,
+    <CommentButton user = {user} commentCount={commentCount} id = {id} />,
+  ];
+  if(user && user.username === username) {
+    actions.push(<DeletePostButton user = {user} id = {id} />);
+  }
   return (
     <Card
     style={{ "width": 300 }}
@@ -18,10 +29,7 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
         />
     }
     actions={
-      [
-        <LikeButton likeCount = {likeCount}/>,
-        <CommentButton commentCount={commentCount} />
-      ]
+      actions
     }
     >
     <Meta

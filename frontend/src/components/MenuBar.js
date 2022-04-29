@@ -28,7 +28,7 @@ function MenuBar() {
 
         <Menu.Item key="logout" icon={ <UserOutlined /> } onClick = {context.logout} >
             <a href="/signin" >
-                logout
+                Logout
             </a>
         </Menu.Item>
       </Menu>

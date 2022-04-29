@@ -1,10 +1,12 @@
 import React from 'react'
 import { Tooltip } from 'antd';
 import { CommentOutlined } from '@ant-design/icons';
+import {useNavigate} from 'react-router-dom';
 
-function CommentButton({commentCount}) {
+function CommentButton({commentCount, id, user}) {
+    const navigate = useNavigate();
     const commentOnPost  = () => {
-        console.log('commenting');
+        navigate(`/posts/${id}`);
     };
     return (
         <Tooltip key="comment-basic-like" title="Comment">

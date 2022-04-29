@@ -1,11 +1,10 @@
 import React, {useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import { AuthProvider, AuthContext } from './context/auth';
-import { Link } from "react-router-dom";
 
 
 function App() {
@@ -15,9 +14,9 @@ function App() {
     <Router>
       <Routes>
         <Route exact path = '/' element = {<Home/>}/>
-        <Route exact path = '/signin' element = {user ? <Link to = "/"/> : <SignIn /> } />
-        <Route exact path = '/signup'  element = {user ? <Link to = "/"/> : <SignUp /> }/>
-        <Route path="*" element ={ <Link to = '/'/>} />
+        <Route exact path = '/signin' element = {user ? <Navigate to = "/"/> : <SignIn /> } />
+        <Route exact path = '/signup'  element = {user ? <Navigate to = "/"/> : <SignUp /> }/>
+        <Route path="*" element ={ <Navigate to = '/'/>} />
       </Routes>
     </Router>
     </AuthProvider>
