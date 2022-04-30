@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import CommentButton from '../components/CommentButton';
 import DeletePostButton from '../components/DeletePostButton';
-import { Card, Avatar} from 'antd';
+import MenuBar from '../components/MenuBar';
+import { Card } from 'antd';
 import { AuthContext } from '../context/auth';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +19,7 @@ function Post() {
     const params = useParams();
     const postId = params.postId;
     const navigate = useNavigate();
-    const {data} = useQuery(GET_POST_QUERY, {
+    const {data, refetch} = useQuery(GET_POST_QUERY, {
         variables:  { postId }
     });
 
@@ -34,32 +35,36 @@ function Post() {
         }
         element = (
                 <Card
-                style={{ "width": 300 }}
-                cover={
-                    <img
-                        alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                }
-                actions={
-                actions
-                }
+                    style={{ "width": "80%", marginLeft: '8%', marginRight: '2%'}}
+                    actions={ actions }
                 >
-                <Meta
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title={username}
-                    description= { `Posted: ${moment(createdAt).fromNow().charAt(0).toUpperCase()
-                                     + moment(createdAt).fromNow().slice(1)
-                                }`}
-                />
-                <p style={{"paddingTop": 20}}>{body}</p>
+                    <Card.Grid hoverable = {false} style={ {width: '30%', textAlign: 'center',}}>  
+                        <img
+                            alt="example"
+                            src="https://joeschmoe.io/api/v1/random"
+                            width= '100%'
+                            height = '40%'
+                        />
+                    </Card.Grid>
+                    <Card.Grid  hoverable = {false} style={ {width: '70%', height: "auto" }}>
+                        <Meta
+                            title={username}
+                            description= { `Posted: ${moment(createdAt).fromNow().charAt(0).toUpperCase()
+                                            + moment(createdAt).fromNow().slice(1)
+                                        }`}
+                        />
+                    </Card.Grid>
+                    <Card.Grid  hoverable = {false} style={ {width: '70%', height: 'auto'}}>
+                        <p style={{paddingTop: "2%"}}>{body}</p>
+                    </Card.Grid>
                 </Card>
         )
     }
-    else element  = (<div className="loading-spinner"><Spin size = "large"/></div>);
+    else element  = (<div className="loading-spinner"><Spin onClick =  { refetch() } size = "large"/></div>);
     
     return (
         <>
+        <MenuBar/>
         <div style = {{margin: "5%"}}>
             {element}
         </div>

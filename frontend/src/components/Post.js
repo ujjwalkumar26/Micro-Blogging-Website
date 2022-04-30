@@ -21,7 +21,8 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
   }
   return (
     <Card
-    style={{ "width": 300 }}
+    style={{ width: 300, margin: "auto" }}
+    hoverable 
     cover={
         <img
             alt="example"
