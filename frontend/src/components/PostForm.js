@@ -26,7 +26,7 @@ function PostForm() {
             query: FETCH_POSTS_QUERY, 
             data: data
         });
-        values.body = '';
+        setValues({ body: '' });
         form.resetFields();
         // window.location.reload();
     }, 

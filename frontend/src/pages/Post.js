@@ -5,6 +5,7 @@ import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import CommentButton from '../components/CommentButton';
+import CreateComment from '../components/CreateComment';
 import DeletePostButton from '../components/DeletePostButton';
 import DeleteCommentButton from '../components/DeleteCommentButton';
 import MenuBar from '../components/MenuBar';
@@ -24,17 +25,17 @@ function Post() {
         variables:  { postId }
     });
 
+    
     let element;
     if(data) {
         const {id, username, likes, body, createdAt, commentCount, likeCount, comments } = data.getPost;
         const actions = [
                             <LikeButton likes = {likes} user = {user} likeCount = {likeCount} id = {id}/>,
-                            <CommentButton user = {user} commentCount={commentCount} id = {id} />,
+                            <CommentButton enabled = {false} commentCount={commentCount} id = {id} />,
                         ];
         if(user && user.username === username) {
             actions.push(<DeletePostButton postId = {id} callback = { () => { navigate('/') }}/>);
         }
-        
         element = (
             <div>
                 <Card
@@ -61,6 +62,10 @@ function Post() {
                         <p style={{paddingTop: "2%"}}>{body}</p>
                     </Card.Grid>
                 </Card>
+
+                {
+                    user && (<CreateComment user = {user} postId = {id} />)
+                }
 
                 {   
                     comments.map(comment => (
@@ -100,6 +105,8 @@ function Post() {
         </>
     )
 }
+
+
 
 const GET_POST_QUERY = gql`
 

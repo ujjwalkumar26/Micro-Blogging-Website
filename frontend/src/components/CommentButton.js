@@ -3,10 +3,10 @@ import { Tooltip } from 'antd';
 import { CommentOutlined } from '@ant-design/icons';
 import {useNavigate} from 'react-router-dom';
 
-function CommentButton({commentCount, id, user}) {
+function CommentButton({commentCount, id, enabled}) {
     const navigate = useNavigate();
     const commentOnPost  = () => {
-        navigate(`/posts/${id}`);
+        if(enabled) navigate(`/posts/${id}`);
     };
     return (
         <Tooltip key="comment-basic-like" title="Comment">

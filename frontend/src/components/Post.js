@@ -14,7 +14,7 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
   const {user} = useContext(AuthContext);
   const actions = [
     <LikeButton likes = {likes} user = {user} likeCount = {likeCount} id = {id}/>,
-    <CommentButton user = {user} commentCount={commentCount} id = {id} />,
+    <CommentButton enabled = {true} user = {user} commentCount={commentCount} id = {id} />,
   ];
   if(user && user.username === username) {
     actions.push(<DeletePostButton postId = {id} />);
