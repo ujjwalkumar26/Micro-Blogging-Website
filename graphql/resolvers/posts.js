@@ -102,7 +102,6 @@ const postResolvers = {
             try {
                 const post = await Post.findById(postId);
                 if(post) {
-                    console.log(post);
                     post.comments.unshift({
                         body,
                         username,

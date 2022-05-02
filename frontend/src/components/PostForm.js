@@ -21,7 +21,6 @@ function PostForm() {
             query: FETCH_POSTS_QUERY,
             variables: values
         });
-        console.log(data);
         data.getPosts = [result.data.createPost, ...data.getPosts];
         proxy.writeQuery({
             query: FETCH_POSTS_QUERY, 

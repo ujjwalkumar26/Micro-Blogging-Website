@@ -21,12 +21,13 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
   }
   return (
     <Card
-    style={{ width: 300, margin: "auto" }}
+    style={{ width: 300, margin: "auto"}}
     hoverable 
     cover={
         <img
             alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            src="https://joeschmoe.io/api/v1/random"
+            height="200"
         />
     }
     actions={

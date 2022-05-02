@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import CommentButton from '../components/CommentButton';
 import DeletePostButton from '../components/DeletePostButton';
+import DeleteCommentButton from '../components/DeleteCommentButton';
 import MenuBar from '../components/MenuBar';
-import { Card } from 'antd';
+import { Card, Comment, Avatar, Tooltip } from 'antd';
 import { AuthContext } from '../context/auth';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ function Post() {
 
     let element;
     if(data) {
-        const {id, username, likes, body, createdAt, commentCount, likeCount } = data.getPost;
+        const {id, username, likes, body, createdAt, commentCount, likeCount, comments } = data.getPost;
         const actions = [
                             <LikeButton likes = {likes} user = {user} likeCount = {likeCount} id = {id}/>,
                             <CommentButton user = {user} commentCount={commentCount} id = {id} />,
@@ -33,7 +34,9 @@ function Post() {
         if(user && user.username === username) {
             actions.push(<DeletePostButton postId = {id} callback = { () => { navigate('/') }}/>);
         }
+        
         element = (
+            <div>
                 <Card
                     style={{ "width": "80%", marginLeft: '8%', marginRight: '2%'}}
                     actions={ actions }
@@ -58,9 +61,35 @@ function Post() {
                         <p style={{paddingTop: "2%"}}>{body}</p>
                     </Card.Grid>
                 </Card>
+
+                {   
+                    comments.map(comment => (
+                        <Comment
+                            style={{ "width": "80%", marginLeft: '8%', marginRight: '2%'}}
+                            key = {comment.id}
+                            author={comment.username}
+                            actions= {[
+                                user && user.username === comment.username && (<DeleteCommentButton commentId = {comment.id} postId = {id}/>)
+                            ]}
+                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt={comment.username} />}
+                            content={
+                            <p>
+                               { comment.body }
+                            </p>
+                            }
+                            datetime={
+                                <Tooltip title={moment(comment.createdAt).fromNow()}>
+                                    <span>{moment(comment.createdAt).fromNow()}</span>
+                                </Tooltip>
+                            }
+                        />
+                    ))
+                }
+
+            </div>
         )
     }
-    else element  = (<div className="loading-spinner"><Spin onClick =  { refetch() } size = "large"/></div>);
+    else element  = (<div className="loading-spinner"><Spin key = {refetch()} size = "large"/></div>);
     
     return (
         <>
