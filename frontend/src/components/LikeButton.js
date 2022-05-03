@@ -37,7 +37,7 @@ function LikeButton({likeCount, id, likes, user}) {
   
 
   return (
-    <Tooltip key="comment-basic-like" title="Like">
+    <Tooltip key="comment-basic-like" title = {isLiked ? "Unlike" : "Like"}>
       <span onClick = {clickLike}>
         {likebutton}
         <span className="comment-action" style={{ "paddingLeft": 8}}>{likeCount}</span>

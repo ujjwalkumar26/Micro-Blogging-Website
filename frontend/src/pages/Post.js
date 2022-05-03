@@ -45,7 +45,7 @@ function Post() {
                     <Card.Grid hoverable = {false} style={ {width: '30%', textAlign: 'center',}}>  
                         <img
                             alt="example"
-                            src="https://joeschmoe.io/api/v1/random"
+                            src={`https://avatars.dicebear.com/api/human/${username}.svg`}
                             width= '100%'
                             height = '40%'
                         />
@@ -76,7 +76,7 @@ function Post() {
                             actions= {[
                                 user && user.username === comment.username && (<DeleteCommentButton commentId = {comment.id} postId = {id}/>)
                             ]}
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt={comment.username} />}
+                            avatar={<Avatar src={`https://avatars.dicebear.com/api/human/${comment.username}.svg`} alt={comment.username} />}
                             content={
                             <p>
                                { comment.body }

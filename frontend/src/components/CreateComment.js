@@ -35,7 +35,8 @@ function CreateComment({ postId, user}) {
                     form={form}
                     layout = "vertical" 
                     onFinish = {submitComment} 
-                    initialValues={{}}
+                    initialValues={{remember: false}}
+                    autoComplete = "off"
                     // hidden = {loading} 
                 >
                     <Form.Item 

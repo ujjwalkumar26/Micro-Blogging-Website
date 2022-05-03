@@ -116,7 +116,7 @@ function SignUp() {
       Object.keys(errors).length > 0 && (
         <div style={{margin: "auto", width: "40%"}} >
           {
-            Object.values(errors).map(err => (<Alert message={err} type="error" showIcon/>))
+            Object.values(errors).map(err => (<Alert key = {err} message={err} type="error" showIcon/>))
           }
         </div>
       )

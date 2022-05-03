@@ -5,12 +5,18 @@ import moment from 'moment';
 import LikeButton from './LikeButton';
 import CommentButton from './CommentButton';
 import DeletePostButton from './DeletePostButton';
+// import * as SparkMD5 from 'spark-md5';
 
 import { AuthContext } from '../context/auth';
+import { useNavigate } from 'react-router-dom';
 const { Meta } = Card;
 
 function Post( { post: {body, createdAt, username, id, likeCount, commentCount, likes} }) {
-  
+  const navigate = useNavigate();
+  const onClickImage = () => {
+    navigate(`posts/${id}`)
+  }
+  // const hash = SparkMD5.hash(username);
   const {user} = useContext(AuthContext);
   const actions = [
     <LikeButton likes = {likes} user = {user} likeCount = {likeCount} id = {id}/>,
@@ -26,8 +32,9 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
     cover={
         <img
             alt="example"
-            src="https://joeschmoe.io/api/v1/random"
+            src= {`https://avatars.dicebear.com/api/human/${username}.svg`}
             height="200"
+            onClick={onClickImage}
         />
     }
     actions={
@@ -35,7 +42,7 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
     }
     >
     <Meta
-        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+        avatar={<Avatar src= {`https://avatars.dicebear.com/api/human/${username}.svg`} />}
         title={username}
         description= {<a href = {`/posts/${id}`}> Posted: {moment(createdAt).fromNow().charAt(0).toUpperCase() + moment(createdAt).fromNow().slice(1)}</a>}
     />

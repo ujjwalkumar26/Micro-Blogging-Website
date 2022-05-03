@@ -6,13 +6,14 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Post from './pages/Post';
 import { AuthProvider, AuthContext } from './context/auth';
-
+import ScrollToTop from "react-scroll-to-top";
 
 
 function App() {
   const { user } = useContext(AuthContext);
   return (
     <AuthProvider>
+    <ScrollToTop smooth = {true} />
     <Router>
       <Routes>
         <Route exact path = '/' element = {<Home/>}/>
