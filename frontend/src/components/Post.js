@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Card, Avatar} from 'antd';
+import { Card, Avatar } from 'antd';
 // import { LikeOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import LikeButton from './LikeButton';
@@ -26,28 +26,28 @@ function Post( { post: {body, createdAt, username, id, likeCount, commentCount, 
     actions.push(<DeletePostButton postId = {id} />);
   }
   return (
-    <Card
-    style={{ width: 300, margin: "auto"}}
-    hoverable 
-    cover={
-        <img
-            alt="example"
-            src= {`https://avatars.dicebear.com/api/human/${username}.svg`}
-            height="200"
-            onClick={onClickImage}
-        />
-    }
-    actions={
-      actions
-    }
-    >
-    <Meta
-        avatar={<Avatar src= {`https://avatars.dicebear.com/api/human/${username}.svg`} />}
-        title={username}
-        description= {<a href = {`/posts/${id}`}> Posted: {moment(createdAt).fromNow().charAt(0).toUpperCase() + moment(createdAt).fromNow().slice(1)}</a>}
-    />
-    <p style={{"paddingTop": 20}}>{body}</p>
-  </Card>
+      <Card
+      style={{ width: 300, margin: "auto"}}
+      hoverable 
+      cover={
+          <img
+              alt="example"
+              src= {`https://avatars.dicebear.com/api/human/${username}.svg`}
+              height="200"
+              onClick={onClickImage}
+          />
+      }
+      actions={
+        actions
+      }
+      >
+      <Meta
+          avatar={<Avatar src= {`https://avatars.dicebear.com/api/human/${username}.svg`} />}
+          title={username}
+          description= {<a href = {`/posts/${id}`}> Posted: {moment(createdAt).fromNow().charAt(0).toUpperCase() + moment(createdAt).fromNow().slice(1)}</a>}
+      />
+      <p style={{"paddingTop": 20}}>{body}</p>
+      </Card>
   )
 }
 

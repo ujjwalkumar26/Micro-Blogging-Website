@@ -3,14 +3,16 @@ import Post from '../components/Post';
 import {Row, Col, Divider} from 'antd';
 export default function Posts({props}) {
   return (
-    <div>
-    <Row gutter = {[8]}>
+    <div style={{margin: "auto"}}>
+    <Row gutter = {[4]}>
+    
         { props.getPosts && props.getPosts.map((post, index, props) => ([ 
-            <Col span = {8} key = {index}>
-            <Post post = {post} key = {post.id}/> 
-            <Divider/> 
+            <Col key = {index} >
+              <Post post = {post} key = {post.id}/>
+              <Divider key = {post}/> 
             </Col>
         ]))} 
+  
     </Row>
     </div>
   )
