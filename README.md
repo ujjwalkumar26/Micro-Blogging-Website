@@ -28,3 +28,5 @@ Here is how you can run this code in your local environment:
 ㊗️ Voilà, you are good to go!
 
 Here is an awesome avatar generator that I used: [dicebear](https://avatars.dicebear.com/).
+
+This website was deveoped to learn GraphQL basics - it is hosted [here](https://microblogger.netlify.app/), please dont create uncessory accounts or posts.
